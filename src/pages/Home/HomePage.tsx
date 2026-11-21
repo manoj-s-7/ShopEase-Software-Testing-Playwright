@@ -10,6 +10,7 @@ import ProductGrid, { ProductGridSkeleton } from '../../components/products/Prod
 import { useAsync } from '../../hooks/useAsync';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { getCategoryCover, getTopRated } from '../../services/productApi';
+import DeploymentBuildFailureProbe from '../../components/common/DeploymentBuildFailureProbe';
 
 const FEATURED = ['beauty', 'furniture', 'smartphones', 'mens-watches', 'womens-bags', 'sunglasses'];
 
