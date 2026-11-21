@@ -48,6 +48,9 @@ export default function HomePage() {
       <section className="border-b border-line" data-testid="hero">
         <PageContainer className="grid items-center gap-10 py-12 lg:grid-cols-[1.05fr_1fr] lg:py-20">
           <div>
+            <span className="mb-5 inline-flex rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-xs font-semibold tracking-[0.12em] text-brand-700">
+              CI/CD DEPLOYMENT TEST • V1
+            </span>
             <h1 className="max-w-xl text-4xl font-extrabold leading-[1.1] text-ink sm:text-5xl">Discover products worth keeping.</h1>
             <p className="mt-5 max-w-lg text-base leading-relaxed text-muted sm:text-lg">
               A small, carefully organised catalogue of everyday essentials, from skincare and furniture to watches and phones.
