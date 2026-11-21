@@ -1,0 +1,44 @@
+name: Deployed Playwright Smoke Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      deployed_url:
+        description: Deployed Vercel HTTPS URL
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deployed-smoke-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    name: Read-only deployment smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: "true"
+      PLAYWRIGHT_BASE_URL: ${{ github.event.inputs.deployed_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - name: Run deployment smoke tests
+        run: npx playwright test --config=playwright.smoke.config.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deployed-smoke-${{ github.run_id }}
+          path: |
+            playwright-report
+            test-results
+          if-no-files-found: warn
+          retention-days: 14

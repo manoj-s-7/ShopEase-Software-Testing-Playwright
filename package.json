@@ -8,6 +8,7 @@
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
     "test:report": "playwright show-report",
+    "test:smoke": "playwright test --config=playwright.smoke.config.ts",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "typecheck": "tsc -b",

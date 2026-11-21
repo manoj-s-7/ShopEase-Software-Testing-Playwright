@@ -9,7 +9,7 @@ export default defineConfig({
   timeout: 60_000,
   reporter: [['list'], ['html', { open: 'never', outputFolder: 'playwright-report' }]],
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:5173',
     browserName: 'chromium',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
@@ -21,11 +21,13 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:5173',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
-  },
+  webServer: process.env.PLAYWRIGHT_BASE_URL
+    ? undefined
+    : {
+        command: 'npm run dev',
+        url: 'http://localhost:5173',
+        reuseExistingServer: !process.env.CI,
+        timeout: 120_000,
+      },
   outputDir: 'test-results',
 });
